@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>(sp (first meetup)) ; Entenda Clojure em quinze minutos</title>
+
+    <meta name="description" content="(sp (first meetup)) ; Entenda Clojure em quinze minutos">
+    <meta name="author" content="Plínio Balduino">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/serif.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/idea.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+
+    <script>
+      document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <style type="text/css">
+    .reveal pre {
+      font-size: 0.9em;
+    }
+
+    .reveal pre code {
+      overflow: visible;
+      max-height: none;
+    }
+
+    span.red {
+      color: red;
+      font-size: 1.2em;
+    }
+
+    .reveal li.grow {
+      line-height: 1.8em;
+    }
+  </style>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>Entenda Clojure em 15 minutos</h1>
+          <hr />
+          <h3>(sp (first meetup))</h3>
+          <h5>São Paulo - 23/Ago/2013</h5>
+          <hr />
+          <p>
+            <a href="http://about.me/pbalduino">Plínio Balduino</a> / <a href="http://twitter.com/p_balduino">@p_balduino</a>
+          </p>
+        </section>
+
+        <section>
+          <h2>Plínio Balduino</h2>
+          <hr />
+          <h3>A past century software developer</h3>
+          <img src="img/cover.jpeg" height="400">
+        </section>
+
+        <section>
+          <h2>Clojure</h2>
+          <hr />
+          <h3>É um LISP</h3>
+          <h3>Compila seu código para JVM ou CLR (.NET)</h3>
+        </section>
+
+        <section>
+          <section>
+            <h2>Sintaxe</h2>
+            <pre><code data-trim class="clojure">(defn fatorial [x]
+  (if (= x 1)
+      1
+      (* (x (dec x)))))
+
+(fatorial 6)
+</code></pre>
+          </section>
+          <section>
+            <h2>Sintaxe</h2>
+            <pre><code data-trim class="clojure">(operador valor valor ... valor)</code></pre>
+          </section>
+          <section>
+            <h2>Sintaxe</h2>
+            <pre><code data-trim class="clojure">(operador 
+  (operador valor 
+            valor 
+            ... 
+            valor)
+  valor)</code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Precedência de operadores</h2>
+            <hr />
+            <pre><code data-trim class="javascript">1 + 2 * 3</code></pre>
+          </section>
+          <section class="fragment">
+            <h2>Precedência de operadores</h2>
+            <hr />
+            <pre><code data-trim class="javascript">1 + 2 * 3
+
+1 + (2 * 3)</code></pre>
+            <img src="img/tree.png" height="400">
+          </section>
+          <section class="fragment">
+            <h2>Precedência de operadores</h2>
+            <hr />
+            <pre><code data-trim class="clojure">(+ 1 (* 2 3))</code></pre>
+            <img src="img/tree.png" height="400">
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Macros</h2>
+            <hr />
+            <h3>Permite que você <span class="red">interfira no compilador</span> em tempo de execução.</h3>
+          </section>
+          <section>
+            <h2>Macros</h2>
+            <hr />
+<pre><code data-trim class="clojure">(defn if-not [condition falsy truey]
+  (if condition
+    falsy
+    truey))
+
+(if-not authorized
+  (show-alert "Acesso negado")
+  (drop-database))</code></pre>
+          </section>
+          <section>
+            <h2>Macros</h2>
+            <hr />
+            <pre><code data-trim class="clojure">(defmacro if-not [condition truey falsy] 
+  `(if ~condition 
+      ~falsy 
+      ~truey))
+
+(if-not authorized
+  (show-alert "Acesso negado")
+  (drop-database))</code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h2>Funcional</h2>
+          <hr />
+          <pre><code data-trim class="clojure">(apply + (range 1 7))
+; => 21
+
+(apply * (range 1 7))
+; => 720
+
+(apply average (range 1 7))
+; => 720</code></pre>
+        </section>
+
+        <section>
+          <section>
+          <h2>Simplicidade</h2>
+          <hr />
+          <h3>Java</h3>
+          <pre><code data-trim class="java">public static long anFibN(final long n) {
+  double p = (1 + Math.sqrt(5)) / 2;
+  double q = 1 / p;
+  return (long) ((Math.pow(p, n) + 
+                  Math.pow(q, n)) / 
+                  Math.sqrt(5));
+}</code></pre>
+          </ul>
+        </section>
+          <section>
+          <h2>Simplicidade</h2>
+          <hr />
+          <h3>Clojure</h3>
+          <pre><code data-trim class="clojure">(defn fibs []
+  (map first 
+       (iterate (fn [[a b]] 
+                    [b (+ a b)])
+                [0 1])))
+
+(def fib (lazy-cat [0 1] 
+                   (map + fib (rest fib))))</code></pre>
+          </ul>
+        </section>
+        </section>
+
+        <section>
+          <h2>Imutabilidade</h2>
+          <hr />
+          <h3>Uma função retorna um novo valor</h3>
+          <h3>Thread safe</h3>
+          <h3>Você não erra o que não se move</h3>
+          <img src="img/immutability.png">
+        </section>
+
+        <section>
+          <section>
+          <h2>Concorrência/Paralelismo</h2>
+          <hr />
+<pre><code data-trim class="clojure">(defn sleep []
+  (Thread/sleep 1000))
+
+(defn fast-computation [x] (* x 2))
+
+(defn heavy-computation [x]
+  (sleep)
+  (* x 2))
+
+(time (doall (map heavy-computation 
+                  [1 2 3 4 5])))
+; "Elapsed time: 5002.32348 msecs"
+
+(time (doall (pmap heavy-computation [1 2 3 4 5])))
+; "Elapsed time: 1003.531455 msecs"</code></pre>
+          </section>
+        </section>
+          <section>
+            <h2>Dúvidas</h2>
+            <hr />
+            <h3>Obrigado</h3>
+          </section>
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'zoom', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
